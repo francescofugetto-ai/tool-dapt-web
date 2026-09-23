@@ -1,0 +1,1061 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Tool DAPT">
+<meta name="theme-color" content="#FAF9F7">
+<script data-iphone="sentinella">
+(function(){
+var h=document.documentElement, msg="";
+function ha(c){ return (" "+h.className+" ").indexOf(" "+c+" ")>=0; }
+// L'errore puo' arrivare prima che l'avviso esista — uno script in <head> che
+// non si lascia leggere —: il messaggio si tiene da parte e si scrive quando
+// la pagina c'e'.
+function scrivi(){
+  var e=document.getElementById("nmerr");
+  if(e&&msg) e.textContent="Errore del motore: "+msg;
+}
+function ko(m){
+  if(m&&!msg) msg=m;
+  if(!ha("motore-ko")) h.className+=" motore-ko";
+  scrivi();
+}
+h.className+=" js";
+window.onerror=function(m,src,riga,col){
+  m=String(m);
+  if(/^Script error\.?$/.test(m)) m="il browser non ne mostra il dettaglio (\u00abScript error.\u00bb)";
+  ko(m+(riga?" (riga "+riga+(col?", colonna "+col:"")+")":""));
+};
+document.addEventListener("DOMContentLoaded",function(){
+  if(!ha("motore-ok")) ko(msg||"il motore non ha completato l'avvio"); else scrivi();
+});
+})();
+</script>
+<title>Terapia antitrombotica dopo PCI — sindrome coronarica cronica (ESC 2024)</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  :root {
+    --bg:#FAF9F7; --surface:#FFFFFF; --surface-alt:#F3F2EF;
+    --border:rgba(11,11,11,0.10); --border-strong:rgba(11,11,11,0.18);
+    --text-primary:#0B0B0B; --text-secondary:#52514E; --text-muted:#76746F;
+    --accent-blue:#2A78D6;   --accent-blue-bg:#E6F1FB;   --accent-blue-border:#B5D4F4;
+    --accent-amber:#BA7517;  --accent-amber-bg:#FAEEDA;  --accent-amber-border:#FAC775;
+    --accent-red:#A32D2D;    --accent-red-bg:#FCEBEB;    --accent-red-border:#F7C1C1;
+    --accent-green:#3B6D11;  --accent-green-bg:#EAF3DE;  --accent-green-border:#C0DD97;
+    --accent-purple:#534AB7; --accent-purple-bg:#EEEDFE; --accent-purple-border:#CECBF6;
+    --cor-1:#3B8E5A; --cor-2a:#E0A82E; --cor-2b:#DE7E3C; --cor-3:#B33A3A;
+    /* il colore del tool: la linea del tempo e le intestazioni dei passi */
+    --acc:#993556; --acc-bg:#F7E9EF; --acc-bd:#E5B9CB;
+    --verif:#0C447C;
+    --k0:#2E7D4F; --k0-bg:#E2F3E8; --k0-bd:#A6D9B8;
+    --k1:#2A78D6; --k1-bg:#E3EFFB; --k1-bd:#A9CBF1;
+    --k2:#8A6A00; --k2-bg:#FBF3C8; --k2-bd:#EBD56C;
+    --k3:#B45309; --k3-bg:#FDEBD8; --k3-bd:#F4BD85;
+    --k4:#A32D2D; --k4-bg:#FCE3E3; --k4-bd:#F0A9A9;
+    --grid:rgba(153,53,86,.07);
+    --radius-md:10px;
+    --font:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --display:'IBM Plex Sans Condensed','Arial Narrow',-apple-system,'Segoe UI',sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,Consolas,'Courier New',monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:#111418; --surface:#181C22; --surface-alt:#20252D;
+      --border:rgba(255,255,255,.10); --border-strong:rgba(255,255,255,.19);
+      --text-primary:#E7EAEE; --text-secondary:#B8BEC7; --text-muted:#949BA5;
+      --accent-blue:#72AAEE;   --accent-blue-bg:#18283A;   --accent-blue-border:#2E4B6C;
+      --accent-amber:#E3A94F;  --accent-amber-bg:#30250F;  --accent-amber-border:#5D4719;
+      --accent-red:#EF8E8E;    --accent-red-bg:#361B1B;    --accent-red-border:#6B3232;
+      --accent-green:#95C873;  --accent-green-bg:#1C2A13;  --accent-green-border:#3C5626;
+      --accent-purple:#ADA6F2; --accent-purple-bg:#23213B; --accent-purple-border:#454077;
+      --acc:#EC9CC0; --acc-bg:#33182A; --acc-bd:#6B3453;
+      --verif:#8EC0F5;
+      --k0:#8FD3A8; --k0-bg:#132B1D; --k0-bd:#2D5A3E;
+      --k1:#8EC0F5; --k1-bg:#16283C; --k1-bd:#2F5378;
+      --k2:#EDD36A; --k2-bg:#2C260C; --k2-bd:#5E5120;
+      --k3:#F3B27A; --k3-bg:#33210F; --k3-bd:#6B4524;
+      --k4:#F29A9A; --k4-bg:#361B1B; --k4-bd:#6B3232;
+      --grid:rgba(236,156,192,.06);
+      color-scheme:dark;
+    }
+  }
+  body { font-family:var(--font); background:var(--bg); color:var(--text-primary); font-size:14.5px; line-height:1.65; -webkit-font-smoothing:antialiased; }
+  .page { max-width:960px; margin:0 auto; padding:0 16px 4rem; }
+  strong, b { font-weight:600; }
+  .muted { color:var(--text-muted); }
+
+  .hero { margin:0 -16px 0; padding:2.2rem 16px 1.3rem; border-bottom:1px solid var(--border);
+          background-color:var(--bg);
+          background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+          background-size:22px 22px; }
+  .kicker { font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--acc); margin-bottom:8px; }
+  .headline { font-family:var(--display); font-size:30px; font-weight:700; line-height:1.12; margin-bottom:10px; }
+  .lede { font-size:14.5px; color:var(--text-secondary); max-width:760px; margin-bottom:12px; }
+  .lede strong { color:var(--text-primary); }
+  .meta-row { display:flex; flex-wrap:wrap; gap:6px 8px; font-size:12px; }
+  .meta-chip { background:var(--surface); border:1px solid var(--border-strong); border-radius:99px; padding:2px 10px; color:var(--text-secondary); overflow-wrap:anywhere; }
+  .meta-chip strong { color:var(--text-primary); }
+
+  .bar { position:-webkit-sticky; position:-webkit-sticky;position:sticky; top:0; z-index:30; background:var(--bg); border-bottom:1px solid var(--border-strong);
+         margin:0 -16px 1.2rem; padding:8px 16px; display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px; }
+  .bar .lbl { font-family:var(--mono); font-size:10.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--text-muted); }
+  .bar .sp { flex:1 1 auto; }
+  .btn { font:600 12.5px var(--font); padding:6px 13px; border-radius:99px; border:1px solid var(--border-strong); background:var(--surface); color:var(--text-secondary); cursor:pointer; }
+  .btn:hover { border-color:var(--acc); color:var(--acc); }
+
+  .stage { display:flex; align-items:baseline; gap:10px; margin:2rem 0 .7rem; padding-bottom:6px; border-bottom:2px solid var(--border-strong); }
+  .stage-n { font-family:var(--mono); font-size:12px; font-weight:600; color:#FFFFFF; background:#993556; border-radius:6px; padding:1px 7px; }
+  .stage-t { font-family:var(--display); font-size:20px; font-weight:700; line-height:1.2; }
+  .stage-w { margin-left:auto; font-size:11.5px; color:var(--text-muted); text-align:right; }
+  .card { background:var(--surface); border:1px solid var(--border-strong); border-radius:12px; padding:14px 16px; margin-bottom:12px; }
+  .card h3 { font-size:13px; font-weight:600; letter-spacing:.02em; margin-bottom:8px; color:var(--text-secondary); }
+  .row { display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px; margin-bottom:10px; }
+  .row:last-child { margin-bottom:0; }
+  .fl { font-size:12.5px; font-weight:600; color:var(--text-secondary); min-width:116px; }
+  .fl small { display:block; font-weight:400; color:var(--text-muted); font-size:11.5px; }
+  input[type=number], select { font:500 15px var(--font); color:var(--text-primary); background:var(--surface); border:1px solid var(--border-strong); border-radius:8px; padding:6px 9px; }
+  input[type=number] { width:104px; text-align:center; }
+  select { max-width:100%; }
+  .seg { display:inline-flex; flex-wrap:wrap; border:1px solid var(--border-strong); border-radius:10px; overflow:hidden; }
+  .seg label { position:relative; cursor:pointer; }
+  .seg input { position:absolute; opacity:0; width:1px; height:1px; }
+  .seg span { display:block; padding:6px 13px; font-size:13.5px; font-weight:500; color:var(--text-secondary); border-right:1px solid var(--border); }
+  .seg label:last-child span { border-right:none; }
+  .seg input:checked + span { background:var(--text-primary); color:var(--bg); }
+  .seg input:focus-visible + span { outline:2px solid var(--acc); outline-offset:-2px; }
+  .chk { display:flex; align-items:flex-start; gap:9px; padding:6px 0; font-size:14px; line-height:1.45; border-bottom:1px dashed var(--border); cursor:pointer; }
+  .chk:last-child { border-bottom:none; }
+  .chk input { margin-top:3px; width:17px; height:17px; flex:0 0 auto; accent-color:#993556; }
+  .chk small { display:block; color:var(--text-muted); font-size:12px; }
+  .due { display:grid; grid-template-columns:1fr 1fr; gap:0 18px; }
+  .hide { display:none !important; }
+  .auto { font-size:12.5px; color:var(--text-secondary); background:var(--surface-alt); border-radius:8px; padding:7px 10px; margin-top:8px; }
+
+  .esito { display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px; margin-bottom:6px; }
+  .cat { display:inline-block; font-size:12.5px; font-weight:600; border-radius:99px; padding:2px 10px; border:1px solid; }
+  .k0 { color:var(--k0); background:var(--k0-bg); border-color:var(--k0-bd); }
+  .k1 { color:var(--k1); background:var(--k1-bg); border-color:var(--k1-bd); }
+  .k2 { color:var(--k2); background:var(--k2-bg); border-color:var(--k2-bd); }
+  .k3 { color:var(--k3); background:var(--k3-bg); border-color:var(--k3-bd); }
+  .k4 { color:var(--k4); background:var(--k4-bg); border-color:var(--k4-bd); }
+  .kx { color:var(--text-muted); background:var(--surface-alt); border-color:var(--border-strong); }
+  .why { font-size:13px; color:var(--text-secondary); }
+  .cor { display:inline-block; font-family:var(--mono); font-size:11px; font-weight:600; color:#FFFFFF; border-radius:4px; padding:0 5px; margin:0 1px; white-space:nowrap; vertical-align:1px; }
+  .c1 { background:var(--cor-1); } .c2a { background:var(--cor-2a); color:#1D1602; } .c2b { background:var(--cor-2b); } .c3 { background:var(--cor-3); }
+  .pg { font-family:var(--mono); font-size:11px; color:var(--text-muted); }
+  .pg i { font-style:normal; white-space:nowrap; }
+  .tag { font-family:var(--mono); font-size:10.5px; color:var(--acc); white-space:nowrap; }
+  .verif { color:var(--verif); font-weight:700; }
+  .sap { display:inline-block; font-family:var(--mono); font-size:10.5px; font-weight:600; letter-spacing:.04em; border-radius:4px; padding:0 5px; color:var(--accent-amber); background:var(--accent-amber-bg); border:1px solid var(--accent-amber-border); }
+  .nota { border-left:3px solid var(--accent-amber); background:var(--accent-amber-bg); border-radius:0 8px 8px 0; padding:7px 11px; margin-top:8px; font-size:13.5px; }
+  .nota.info { border-left-color:var(--accent-blue); background:var(--accent-blue-bg); }
+  .nota.stop { border-left-color:var(--accent-red); background:var(--accent-red-bg); }
+  .nota.ok { border-left-color:var(--accent-green); background:var(--accent-green-bg); }
+  .nota strong { color:var(--text-primary); }
+  .passo { display:flex; gap:10px; padding:7px 0; border-bottom:1px dashed var(--border); }
+  .passo:last-child { border-bottom:none; }
+  .passo .ico { flex:0 0 22px; font-weight:700; color:var(--acc); text-align:center; }
+  .passo .tx { flex:1 1 auto; font-size:14px; }
+
+  /* linea del tempo: una fase per riga, la colonna delle fasi si impila sotto i 640 px */
+  .sintesi { font-family:var(--display); font-size:18px; font-weight:700; line-height:1.3; margin-bottom:4px; }
+  .tl { border-left:3px solid var(--acc-bd); margin:10px 0 0 6px; }
+  .fase { display:grid; grid-template-columns:96px minmax(0,1fr); gap:2px 14px; padding:10px 0 10px 16px; border-bottom:1px dashed var(--border); position:relative; }
+  .fase:last-child { border-bottom:none; }
+  .fase::before { content:""; position:absolute; left:-9.5px; top:16px; width:13px; height:13px; border-radius:50%; background:var(--acc); border:2px solid var(--surface); }
+  .fase-t { font-family:var(--mono); font-size:12.5px; font-weight:600; color:var(--acc); padding-top:2px; }
+  .op { font-size:14px; margin:0 0 7px; }
+  .op:last-child { margin-bottom:0; }
+  .op-alt { padding-left:10px; border-left:2px solid var(--border-strong); color:var(--text-secondary); }
+  .op-alt b { color:var(--text-primary); }
+  .op-no { padding-left:10px; border-left:2px solid var(--accent-red-border); color:var(--text-secondary); }
+  .op-info { font-size:13px; color:var(--text-muted); }
+  .op .k { font-family:var(--mono); font-size:10px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--text-muted); margin-right:5px; }
+
+  /* tabelle: base del design system (componenti.md § 0, assets/template.html) */
+  .tbl-wrap { overflow-x:auto; }
+  .glance { width:100%; border-collapse:separate; border-spacing:0; margin:.6rem 0; font-size:13px; border-radius:var(--radius-md); overflow:hidden; border:.5px solid var(--border-strong); }
+  .glance th { background:var(--surface-alt); text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--text-secondary); font-weight:600; padding:9px 12px; }
+  .glance td { padding:9px 12px; border-top:.5px solid var(--border); vertical-align:top; }
+  :is(table.rec,table.adv,table.glance,table.evi,table.rx) td[colspan] { white-space:normal; text-align:left; font-weight:400; }
+  :is(table.rec,table.adv,table.glance,table.evi,table.rx) tr.nota-riga > td, :is(table.rec,table.adv,table.glance,table.evi,table.rx) td.tbl-nota {
+    font-size:11px; line-height:1.5; color:var(--text-muted); background:var(--surface-alt);
+    text-align:left; white-space:normal; padding:7px 10px; }
+  :is(table.rec,table.adv,table.glance,table.evi,table.rx) tr.nota-riga > td .rich, :is(table.rec,table.adv,table.glance,table.evi,table.rx) td.tbl-nota .rich {
+    font-family:var(--mono); font-weight:600; color:var(--accent-blue); margin-right:6px; }
+
+  .limiti li { margin:4px 0 4px 18px; font-size:13.5px; }
+  .foot { margin-top:2.4rem; padding-top:1rem; border-top:1px solid var(--border-strong); font-size:12px; color:var(--text-muted); line-height:1.7; }
+  .foot strong { color:var(--text-secondary); }
+  @media (max-width:640px) {
+    .due { grid-template-columns:1fr; }
+    .headline { font-size:25px; }
+    .stage-w { display:none; }
+    .fl { min-width:0; width:100%; }
+    .fase { grid-template-columns:minmax(0,1fr); }
+  }
+  @media (max-width:640px) { .page { overflow-wrap:anywhere; } }
+  /* ═══ TABELLE A SCHEDE SOTTO I 640 px ═══ dal design system delle schede
+     (componenti.md § 0, assets/template.html), preso e non riscritto. */
+  @media screen and (max-width:640px){
+    table:is(.rec,.adv,.glance,.evi,.rx){ display:block; overflow:visible; border:none; border-radius:0; background:none; }
+    table:is(.rec,.adv,.glance,.evi,.rx) thead{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap; border:0; }
+    table:is(.rec,.adv,.glance,.evi,.rx) :is(tbody,tr,td){ display:block; width:auto; }
+    table:is(.rec,.adv,.glance,.evi,.rx) tr{ background:var(--surface); border:.5px solid var(--border-strong); border-radius:var(--radius-md); padding:9px 12px; margin:0 0 8px; }
+    table:is(.rec,.adv,.glance,.evi,.rx) tr:last-child{ margin-bottom:0; }
+    table:is(.rec,.adv,.glance,.evi,.rx) td{ padding:5px 0 !important; border:0 !important; border-top:.5px dashed var(--border) !important; text-align:left !important; white-space:normal !important; }
+    table:is(.rec,.adv,.glance,.evi,.rx) td:first-child{ border-top:0 !important; }
+    table:is(.rec,.adv,.glance,.evi,.rx) td[data-col]::before{ content:attr(data-col); display:block; margin-bottom:2px; font-size:9.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--text-muted); }
+    table:is(.rec,.adv,.glance,.evi,.rx) td[data-col=""]::before{ display:none; }
+    /* la riga di nota si aggancia alla scheda che sta sopra */
+    table:is(.rec,.adv,.glance,.evi,.rx) tr.nota-riga{ margin:-8px 0 8px; border-top:0;
+      border-radius:0 0 var(--radius-md) var(--radius-md); background:var(--surface-alt); padding:4px 12px; }
+    table:is(.rec,.adv,.glance,.evi,.rx) tr.nota-riga > td{ padding:3px 0 !important; border-top:0 !important; background:none; }
+  }
+  @media print { .bar { position:static; } }
+</style>
+<style data-iphone="stile">
+/* L'avviso e' visibile per costruzione: lo nasconde solo la classe che la
+   sentinella mette quando JavaScript esiste, e lo rimostra quando il motore
+   muore. Nell'anteprima dell'iPhone nessuna delle due arriva. */
+#nomotore{background:#FCEBEB;border:1.5px solid #A32D2D;border-radius:10px;
+ padding:12px 15px;margin:0 0 1.1rem;font-size:13.5px;line-height:1.6;color:#0B0B0B;
+ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif}
+#nomotore strong{display:block;color:#A32D2D;font-size:15px;margin-bottom:4px}
+#nomotore p{margin:6px 0 0}
+#nomotore a{color:#A32D2D}
+#nomotore .nmurl{font-family:'SFMono-Regular',Consolas,Menlo,monospace;font-size:.92em;word-break:break-all}
+#nomotore .nmerr{display:block;font-family:'SFMono-Regular',Consolas,Menlo,monospace;
+ font-size:11.5px;color:#A32D2D;margin-top:6px;word-break:break-word}
+#nomotore .nmerr:empty{display:none}
+html.js #nomotore{display:none}
+html.js.motore-ko #nomotore{display:block}
+
+#nmprivacy{background:#E2F4F5;border:1px solid #A7DBDE;border-radius:8px;padding:9px 13px;
+ margin:0 0 1rem;font-size:12.5px;line-height:1.55;color:#0B0B0B;
+ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif}
+@media print{#nmprivacy{display:none}}
+</style>
+</head>
+<body>
+<div class="nomotore" id="nomotore" role="alert">
+ <strong>Motore di calcolo non attivo</strong>
+ <p>I calcoli, i filtri e i comandi di questa pagina <b>non funzionano</b>: dove leggi «—» non c'è un
+ valore. Il testo resta leggibile, i numeri che dipendono dai tuoi dati no. Non usare questa pagina
+ per decidere una dose.</p>
+ <p>Su iPhone e iPad succede sempre con un file salvato sul telefono: si apre nell'<b>anteprima</b> —
+ dall'app File, da Mail, da WhatsApp —, che mostra la pagina ma non esegue il motore, e Apple non
+ permette di aprirlo in Safari. Sull'iPhone il tool funziona aperto da questo indirizzo, in Safari: <a class="nmurl" href="https://francescofugetto-ai.github.io/tool-dapt-web/">https://francescofugetto-ai.github.io/tool-dapt-web/</a> — poi Condividi, «Aggiungi alla schermata Home». Dopo la prima apertura funziona anche senza rete. Su computer e Android basta aprire il file.</p>
+ <span class="nmerr" id="nmerr"></span>
+</div>
+<div class="nmprivacy" id="nmprivacy">
+ <b>Quello che scrivi resta su questo dispositivo.</b> La pagina non invia niente in rete e non
+ salva niente: nessun dato esce da qui. Per la stessa ragione, <b>chiudendola il contenuto si
+ perde</b> — copia il referto dove ti serve prima di chiudere.
+</div>
+<div class="page">
+
+<header class="hero">
+  <div class="kicker">Strumento · Sindrome coronarica cronica · ESC 2024</div>
+  <h1 class="headline">Terapia antitrombotica dopo PCI — sindrome coronarica cronica (ESC 2024)</h1>
+  <p class="lede"><strong>Come si usa.</strong> Il passo 1 dice se c'è un'indicazione all'anticoagulante orale; il passo 2 classifica il <strong>rischio emorragico</strong> con i criteri ARC-HBR o il PRECISE-DAPT, il passo 3 il <strong>rischio ischemico</strong> e il tipo di stenting. Il passo 4 disegna lo <strong>schema fase per fase</strong> — dal primo mese al lungo termine — con molecole, dosi della fonte e classe di ogni opzione; il passo 5 le opzioni di <strong>terapia estesa</strong> quando il paziente ne è candidato. <strong>Azzera</strong>, in alto, ricomincia.</p>
+  <div class="meta-row">
+    <span class="meta-chip"><strong>Fonte</strong> 2024 ESC Guidelines for the management of chronic coronary syndromes · Eur Heart J 2024;45:3415–3537</span>
+    <span class="meta-chip"><strong>Da</strong> Fig. 11 (p. 3463) · Tab. 8 (p. 3464) · Rec. Table 17 (pp. 3465–3466) · Suppl. Tab. S1–S3 (pp. 8–9)</span>
+    <span class="meta-chip"><strong>Per</strong> CCS e PCI con stent non complicata</span>
+  </div>
+</header>
+
+<div class="bar" id="bar" aria-live="polite">
+  <span class="lbl">HBR</span> <span id="barHbr" class="cat kx">—</span>
+  <span class="lbl">ischemico</span> <span id="barIsc" class="cat kx">—</span>
+  <span class="lbl">schema</span> <span id="barSch" class="cat kx">—</span>
+  <span class="sp"></span>
+  <button class="btn" id="azzera" type="button">Azzera</button>
+</div>
+
+<div class="stage"><span class="stage-n">1</span><span class="stage-t">Il paziente e la PCI</span><span class="stage-w">anticoagulante, età, sesso, peso</span></div>
+
+<div class="card">
+  <div class="row">
+    <span class="fl">Indicazione all'anticoagulante orale<small>a lungo termine</small></span>
+    <span class="seg">
+      <label><input type="radio" name="oac" value="no"><span>no</span></label>
+      <label><input type="radio" name="oac" value="doac"><span>sì, DOAC</span></label>
+      <label><input type="radio" name="oac" value="avk"><span>sì, AVK</span></label>
+    </span>
+  </div>
+  <div class="row hide" id="rigaDoac">
+    <span class="fl">Quale DOAC</span>
+    <select id="doac">
+      <option value="">—</option>
+      <option value="apixaban">Apixaban</option>
+      <option value="dabigatran">Dabigatran</option>
+      <option value="edoxaban">Edoxaban</option>
+      <option value="rivaroxaban">Rivaroxaban</option>
+    </select>
+  </div>
+  <div class="hide" id="rigaOac">
+    <div class="row">
+      <span class="fl">Perché l'anticoagulante</span>
+      <select id="motivo">
+        <option value="">—</option>
+        <option value="fa">Fibrillazione atriale</option>
+        <option value="tev">Tromboembolismo venoso</option>
+        <option value="valvola">Protesi valvolare meccanica</option>
+        <option value="altro">Altra indicazione</option>
+      </select>
+    </div>
+    <label class="chk"><input type="checkbox" id="prevaleEmo"><span>Il timore del sanguinamento prevale su quello della trombosi di stent e dell'ictus<small>decide le dosi ridotte di rivaroxaban e dabigatran durante l'antiaggregante (Rec. Table 17, p. 3466)</small></span></label>
+  </div>
+</div>
+
+<div class="card">
+  <div class="row">
+    <span class="fl">Età <small>anni</small></span>
+    <input type="number" id="eta" min="18" max="110" step="1" inputmode="numeric" placeholder="es. 68">
+    <span class="fl">Sesso</span>
+    <span class="seg">
+      <label><input type="radio" name="sesso" value="f"><span>Donna</span></label>
+      <label><input type="radio" name="sesso" value="m"><span>Uomo</span></label>
+    </span>
+  </div>
+  <div class="row">
+    <span class="fl">Peso <small>kg, per il prasugrel</small></span>
+    <input type="number" id="peso" min="25" max="300" step="1" inputmode="numeric" placeholder="es. 78">
+  </div>
+</div>
+
+<div class="card">
+  <h3>Fuori dal campo di questo strumento</h3>
+  <label class="chk"><input type="checkbox" id="sca"><span>La PCI è stata fatta per una sindrome coronarica acuta recente<small>la durata segue la linea guida delle SCA</small></span></label>
+  <label class="chk"><input type="checkbox" id="complicata"><span>PCI complicata<small>la sequenza raccomandata con l'anticoagulante vale per la PCI non complicata</small></span></label>
+</div>
+
+<div class="stage"><span class="stage-n">2</span><span class="stage-t">Rischio emorragico</span><span class="stage-w">Suppl. Tab. S2, p. 8 · valutarlo <span class="cor c1">I B</span> p. 3488</span></div>
+
+<div class="card">
+  <div class="row">
+    <span class="fl">eGFR <small>mL/min/1,73 m²</small></span>
+    <input type="number" id="egfr" min="1" max="200" step="1" inputmode="numeric" placeholder="es. 55">
+    <span class="fl">Emoglobina <small>g/dL</small></span>
+    <input type="number" id="hb" min="3" max="25" step="0.1" inputmode="decimal" placeholder="es. 12,4">
+  </div>
+  <div class="row">
+    <span class="fl">PRECISE-DAPT <small>facoltativo — va inserito, lo strumento non lo calcola</small></span>
+    <input type="number" id="precise" min="0" max="100" step="1" inputmode="numeric" placeholder="punti">
+  </div>
+  <div class="auto">Si accendono da soli dai dati: <b>uso previsto di OAC</b>, <b>eGFR &lt;30</b> ed <b>emoglobina &lt;11 g/dL</b> (criteri maggiori); <b>età &gt;75 anni</b>, <b>eGFR 30–59</b> ed <b>emoglobina 11–12,9 g/dL nell'uomo o 11–11,9 nella donna</b> (criteri minori).</div>
+</div>
+
+<div class="card">
+  <h3>Criteri maggiori ARC-HBR — ne basta uno</h3>
+  <div class="due" id="lstMag"></div>
+</div>
+<div class="card">
+  <h3>Criteri minori ARC-HBR — ne servono due</h3>
+  <div id="lstMin"></div>
+</div>
+<div class="card" id="outHbr"></div>
+
+<div class="stage"><span class="stage-n">3</span><span class="stage-t">Rischio ischemico e tipo di stenting</span><span class="stage-w">Suppl. Tab. S3, p. 9 · note c ed e, p. 3466</span></div>
+
+<div class="card">
+  <div class="row">
+    <span class="fl">CAD epicardica<small>la Tab. S3 conta entrambe</small></span>
+    <span class="seg">
+      <label><input type="radio" name="cad" value="complessa"><span>complessa</span></label>
+      <label><input type="radio" name="cad" value="noncompl"><span>non complessa</span></label>
+    </span>
+  </div>
+  <h3 style="margin-top:6px">Caratteristiche della PCI — di questa o delle precedenti</h3>
+  <div class="due" id="lstPci"></div>
+</div>
+<div class="card">
+  <h3>Caratteristiche cliniche</h3>
+  <div class="due" id="lstClin"></div>
+</div>
+<div class="card" id="outIsc"></div>
+
+<div class="stage"><span class="stage-n">4</span><span class="stage-t">Lo schema, fase per fase</span><span class="stage-w">Fig. 11, p. 3463 · Rec. Table 17, pp. 3465–3466</span></div>
+
+<div class="card" id="outSchema">
+  <div class="sintesi" id="schemaSint">—</div>
+  <div id="schemaMsg"></div>
+  <div class="tl" id="tl"></div>
+  <div id="schemaNote"></div>
+</div>
+
+<div class="card">
+  <h3>Dosi e rene dei farmaci dello schema</h3>
+  <div class="tbl-wrap" id="dosi"></div>
+</div>
+
+<div class="card">
+  <h3>Protezione gastrica</h3>
+  <div id="ipp"></div>
+</div>
+
+<div class="stage"><span class="stage-n">5</span><span class="stage-t">Terapia estesa intensificata</span><span class="stage-w">Tab. 8, p. 3464 · <span class="cor c2a">IIa A</span> p. 3465</span></div>
+<div class="card" id="estesa"></div>
+
+<div class="stage"><span class="stage-n">6</span><span class="stage-t">Che cosa fare dopo, e che cosa questo strumento non fa</span></div>
+<div class="card">
+  <h3>Dopo</h3>
+  <div id="dopo"></div>
+</div>
+<div class="card">
+  <h3>Da sapere</h3>
+  <div id="dasapere"></div>
+</div>
+<div class="card">
+  <h3>Limiti</h3>
+  <ul class="limiti" id="limiti"></ul>
+</div>
+
+<div class="foot">
+  <strong>Fonte.</strong> Vrints C, Andreotti F, Koskinas KC, Rossello X, et al. <em>2024 ESC Guidelines for the management of chronic coronary syndromes.</em> Eur Heart J 2024;45:3415–3537 — Fig. 11 (p. 3463, letta colonna per colonna sull'immagine), Tab. 8 (p. 3464), § 4.3.1 (pp. 3460–3465), Recommendation Table 17 con le note c, d, e (pp. 3465–3466), Recommendation Table 26 (p. 3488); Supplementary data, Tab. S1, S2, S3 (pp. 8–9). Testo riformulato, nessun passo della fonte riprodotto.<br><br>
+  <strong>Strumento personale di studio e consultazione:</strong> non è un dispositivo medico validato e <strong>non sostituisce il giudizio clinico né la scheda tecnica</strong>. Ogni numero mostrato viene dalla linea guida, con la pagina accanto; dove la linea guida non dice, lo strumento lo scrive — <span class="verif">DA VERIFICARE</span> — e non inventa. La fonte non pubblica l'aggiustamento renale di nessun antitrombotico.
+</div>
+
+</div>
+<script>
+(function () {
+  "use strict";
+
+  /* ═══ DATI ═══════════════════════════════════════════════════════════════
+     Ogni valore porta la pagina stampata della fonte (ESC 2024 = testo
+     principale, Suppl. = Supplementary data). */
+
+  var FASI = ["0–1 mese", "1–3 mesi", "3–6 mesi", "6–12 mesi", "oltre 12 mesi"];
+
+  /* Criteri ARC-HBR — Suppl. Tab. S2, p. 8. HBR = almeno 1 maggiore oppure
+     almeno 2 minori (riga d'intestazione della tabella). Tre maggiori (OAC,
+     eGFR <30, Hb <11) e tre minori (età >75, eGFR 30–59, Hb 11–12,9 uomo /
+     11–11,9 donna) li accendono i dati; gli altri si segnano. */
+  var MAGGIORI = [
+    { id:"mSang",    t:"Sanguinamento spontaneo con ricovero o trasfusione negli ultimi 6 mesi, o in qualunque momento se ricorrente" },  // S2, p. 8
+    { id:"mPiastr",  t:"Piastrinopenia di base moderata o severa (piastrine <100 × 10⁹/L)" },                                               // S2, p. 8
+    { id:"mDiatesi", t:"Diatesi emorragica cronica" },                                                                                      // S2, p. 8
+    { id:"mCirrosi", t:"Cirrosi epatica con ipertensione portale" },                                                                        // S2, p. 8
+    { id:"mTumore",  t:"Neoplasia attiva negli ultimi 12 mesi (esclusi i tumori cutanei non melanoma)" },                                   // S2, p. 8
+    { id:"mIchSp",   t:"Emorragia intracranica spontanea pregressa, in qualunque momento" },                                                // S2, p. 8
+    { id:"mIchTr",   t:"Emorragia intracranica traumatica negli ultimi 12 mesi" },                                                          // S2, p. 8
+    { id:"mMav",     t:"Malformazione artero-venosa cerebrale" },                                                                           // S2, p. 8
+    { id:"mIctus",   t:"Ictus ischemico moderato o severo negli ultimi 6 mesi" },                                                           // S2, p. 8
+    { id:"mChir30",  t:"Chirurgia maggiore o trauma maggiore nei 30 giorni prima della PCI" },                                              // S2, p. 8
+    { id:"mChirDapt",t:"Chirurgia maggiore non differibile durante la DAPT" }                                                               // S2, p. 8
+  ];
+  var MINORI = [
+    { id:"nSang",  t:"Sanguinamento spontaneo con ricovero o trasfusione negli ultimi 12 mesi, che non soddisfa il criterio maggiore" },    // S2, p. 8
+    { id:"nFans",  t:"Uso cronico di FANS orali o di steroidi" },                                                                           // S2, p. 8
+    { id:"nIctus", t:"Ictus ischemico in qualunque momento, che non soddisfa il criterio maggiore" }                                        // S2, p. 8
+  ];
+
+  /* Rischio ischemico. Etichette della provenienza:
+       s3 = Suppl. Tab. S3, p. 9 (criteri per la terapia estesa: CAD complessa
+            o non complessa più almeno uno di questi);
+       c  = nota c della Rec. Table 17, p. 3466 (fattori di rischio
+            trombotico/ischemico nella CCS; la nota rimanda anche alla S3);
+       e  = nota e, p. 3466 (caratteristiche anatomiche/procedurali: aspirina
+            fino a 1 mese con l'OAC, IIa B);
+       ar = stenting ad alto rischio trombotico, Rec. Table 17, p. 3466, e
+            Fig. 11 nota a, p. 3463 (prasugrel o ticagrelor al posto del
+            clopidogrel, IIb C).
+     La nota c e' attaccata a ogni «alto rischio ischemico» della Rec. Table
+     17: il rischio e' alto con almeno un fattore della S3 o della nota c. */
+  var ISC_PCI = [
+    { id:"pTc",       t:"Stenting del tronco comune", s3:1, c:1, e:1 },
+    { id:"pTcCompl",  t:"Tronco comune complesso", s3:1, c:1, e:1, ar:1 },
+    { id:"pIva",      t:"Stenting dell'IVA prossimale", c:1, e:1 },
+    { id:"pUltimo",   t:"Stenting dell'ultimo vaso pervio", s3:1, c:1, e:1 },
+    { id:"pSubott",   t:"Impianto o risultato dello stent subottimale", c:1, e:1, ar:1 },
+    { id:"p60",       t:"Lunghezza totale degli stent >60 mm", s3:1, c:1, e:1 },
+    { id:"pBif2",     t:"Biforcazione trattata con 2 stent", s3:1, c:1, e:1, ar:1 },
+    { id:"pCto",      t:"Occlusione cronica totale trattata", s3:1, c:1, e:1 },
+    { id:"p3stent",   t:"Almeno 3 stent impiantati", s3:1 },
+    { id:"p3lesioni", t:"Almeno 3 lesioni trattate", s3:1 },
+    { id:"pTs",       t:"Trombosi di stent pregressa in terapia antiaggregante", s3:1, c:1, ar:1 },
+    { id:"pCyp",      t:"Polimorfismo CYP2C19 *2/*3 già noto", ar:1 }
+  ];
+  var ISC_CLIN = [
+    { id:"cDm",    t:"Diabete in terapia farmacologica", s3:1, c:1 },
+    { id:"cImRec", t:"Infarto miocardico ricorrente", s3:1 },
+    { id:"cPoli",  t:"Malattia polidistrettuale (CAD e arteriopatia periferica)", s3:1 },
+    { id:"cMulti", t:"CAD multivasale", s3:1 },
+    { id:"cPrem",  t:"CAD precoce (<45 anni) o accelerata (nuova lesione entro 2 anni)", s3:1 },
+    { id:"cInfl",  t:"Malattia sistemica infiammatoria o protrombotica (HIV, LES, artrite cronica, sindrome da antifosfolipidi)", s3:1 },
+    { id:"cIrc",   t:"Insufficienza renale cronica", c:1 }
+  ];
+
+  /* Anticoagulanti. Dose piena e ridotta di rivaroxaban e dabigatran: Rec.
+     Table 17, p. 3466 (la ridotta quando il timore del sanguinamento
+     prevale, per la durata dell'antiaggregante, IIa B). Apixaban ed edoxaban:
+     la fonte non ne riporta la dose. */
+  var DOAC = {
+    rivaroxaban: { nome:"Rivaroxaban", piena:"20 mg 1×/die", ridotta:"15 mg 1×/die" },   // p. 3466
+    dabigatran:  { nome:"Dabigatran",  piena:"150 mg ×2/die", ridotta:"110 mg ×2/die" }, // p. 3466
+    apixaban:    { nome:"Apixaban",    piena:null, ridotta:null },
+    edoxaban:    { nome:"Edoxaban",    piena:null, ridotta:null }
+  };
+
+  /* Dominio degli ingressi: e' dello strumento, non della fonte. */
+  var DOMINIO = {
+    eta:     { min:18, max:110, u:"anni", nome:"Età", perche:"lo strumento è per l'adulto" },
+    peso:    { min:25, max:300, u:"kg", nome:"Peso" },
+    egfr:    { min:1,  max:200, u:"mL/min/1,73 m²", nome:"eGFR" },
+    hb:      { min:3,  max:25,  u:"g/dL", nome:"Emoglobina" },
+    precise: { min:0,  max:100, u:"punti", nome:"PRECISE-DAPT" }
+  };
+
+  /* ═══ FORMATO (funzioni pure che rendono testo) ═══════════════════════ */
+  var VERIF = "<span class='verif'>DA VERIFICARE</span>";
+  function nf(v) { return String(Math.round(v * 10) / 10).replace(".", ","); }
+  function corPill(c, l) {
+    if (!c) return "";
+    var k = { "I":"c1", "IIa":"c2a", "IIb":"c2b", "III":"c3" }[c];
+    return " <span class='cor " + k + "'>" + c + (l ? " " + l : "") + "</span>";
+  }
+  /* la fonte in chiaro: ogni rimando resta intero, fra un rimando e l'altro si va a capo */
+  function pgs(p) { return p ? " <span class='pg'><i>" + p.split(" · ").join("</i> · <i>") + "</i></span>" : ""; }
+  function etichette(x) {
+    var a = [];
+    if (x.s3) a.push("Tab. S3");
+    if (x.c) a.push("nota c");
+    if (x.e) a.push("nota e");
+    if (x.ar) a.push("stenting AR");
+    return a.join(" · ");
+  }
+
+  /* ═══ FUNZIONI PURE ═══════════════════════════════════════════════════ */
+
+  /* Toglie i valori fuori dominio e li elenca: un valore impossibile vale
+     come un campo vuoto, con la sua ragione. */
+  function valida(s) {
+    var c = {}, k, fuori = [];
+    for (k in s) if (Object.prototype.hasOwnProperty.call(s, k)) c[k] = s[k];
+    for (k in DOMINIO) if (Object.prototype.hasOwnProperty.call(DOMINIO, k)) {
+      var d = DOMINIO[k], v = s[k];
+      if (v !== null && v !== undefined && (v < d.min || v > d.max)) {
+        fuori.push(d.nome + " " + nf(v) + " " + d.u + ": fuori dal dominio dello strumento (" + d.min + "–" + d.max + ")" + (d.perche ? ", " + d.perche : "") + " — non usato");
+        c[k] = null;
+        c[k + "Fuori"] = true;
+      }
+    }
+    c.fuori = fuori;
+    return c;
+  }
+
+  /* Alto rischio emorragico — Suppl. Tab. S2, p. 8: almeno 1 criterio
+     maggiore o almeno 2 minori. PRECISE-DAPT ≥25 e' criterio maggiore
+     (S2, nota a; il testo a p. 3462 scrive «>25»). Rende null quando un
+     dato mancante potrebbe ancora cambiare l'esito. */
+  function hbr(s) {
+    var mag = [], min = [], ign = [], potMag = 0, potMin = 0, i;
+    if (s.oac === "doac" || s.oac === "avk") mag.push("uso previsto di un anticoagulante orale a lungo termine");
+    else if (s.oac !== "no") { ign.push("indicazione all'OAC"); potMag++; }
+    if (s.egfr === null) { ign.push("eGFR"); potMag++; }
+    else if (s.egfr < 30) mag.push("IRC severa o terminale: eGFR " + nf(s.egfr) + " (<30)");
+    else if (s.egfr < 60) min.push("IRC moderata: eGFR " + nf(s.egfr) + " (30–59)");
+    if (s.hb === null) { ign.push("emoglobina"); potMag++; }
+    else if (s.hb < 11) mag.push("emoglobina " + nf(s.hb) + " g/dL (<11)");
+    else if (s.hb < 12) min.push("emoglobina " + nf(s.hb) + " g/dL (11–11,9: minore nei due sessi)");
+    else if (s.hb < 13) {
+      if (s.sesso === "m") min.push("emoglobina " + nf(s.hb) + " g/dL (11–12,9 nell'uomo)");
+      else if (s.sesso !== "f") { ign.push("sesso (con emoglobina fra 12 e 12,9 decide se è un criterio minore)"); potMin++; }
+    }
+    if (s.eta === null) { ign.push("età"); potMin++; }
+    else if (s.eta > 75) min.push("età " + nf(s.eta) + " anni (>75)");
+    if (s.precise !== null && s.precise >= 25) mag.push("PRECISE-DAPT " + nf(s.precise) + " (≥25)");
+    for (i = 0; i < MAGGIORI.length; i++) if (s[MAGGIORI[i].id]) mag.push(MAGGIORI[i].t);
+    for (i = 0; i < MINORI.length; i++) if (s[MINORI[i].id]) min.push(MINORI[i].t);
+    var stato;
+    if (mag.length >= 1 || min.length >= 2) stato = true;
+    else if (potMag > 0 || min.length + potMin >= 2) stato = null;
+    else stato = false;
+    return { stato:stato, maggiori:mag, minori:min, ignoti:ign };
+  }
+
+  /* Rischio ischemico e tipo di stenting. */
+  function ischemico(s) {
+    var tutti = ISC_PCI.concat(ISC_CLIN), fatt = [], e = [], ar = [], s3 = false, i, x;
+    for (i = 0; i < tutti.length; i++) {
+      x = tutti[i];
+      if (!s[x.id]) continue;
+      if (x.id === "pTc" && s.pTcCompl) continue;   // contato una volta, come tronco complesso
+      if (x.s3 || x.c) { fatt.push({ t:x.t, tag:etichette(x) }); if (x.s3) s3 = true; }
+      if (x.e) e.push(x.t);
+      if (x.ar) ar.push(x.t);
+    }
+    return { alto:fatt.length > 0, s3:s3, soloC:fatt.length > 0 && !s3, fattori:fatt, notaE:e, ar:ar, cad:s.cad };
+  }
+
+  /* Prasugrel: 10 mg 1×/die, 5 mg se ≥75 anni o <60 kg — Fig. 11 nota b,
+     p. 3463; Suppl. Tab. S1, p. 8; Tab. 8, p. 3464. */
+  function prasugrel(s) {
+    var perche = [];
+    if (s.eta !== null && s.eta >= 75) perche.push("età ≥75 anni");
+    if (s.peso !== null && s.peso < 60) perche.push("peso <60 kg");
+    if (perche.length) return { mg:5, t:"prasugrel 5 mg 1×/die (" + perche.join(" e ") + ")" };
+    if (s.eta === null || s.peso === null) {
+      var manca = [];
+      if (s.eta === null) manca.push("l'età");
+      if (s.peso === null) manca.push("il peso");
+      return { mg:null, t:"prasugrel 10 mg 1×/die — 5 mg se &lt;60 kg o ≥75 anni: manca " + manca.join(" e ") };
+    }
+    return { mg:10, t:"prasugrel 10 mg 1×/die" };
+  }
+
+  function farm(k, s) {
+    if (k === "A") return "aspirina 75–100 mg 1×/die";     // Rec. Table 17, p. 3465 (Fig. 11: 100 mg)
+    if (k === "C") return "clopidogrel 75 mg 1×/die";      // Fig. 11, p. 3463; Rec. Table 17, p. 3465
+    if (k === "P") return prasugrel(s).t;
+    if (k === "T90") return "ticagrelor 90 mg ×2/die";     // Fig. 11, p. 3463
+    if (k === "T60") return "ticagrelor 60 mg ×2/die";     // Fig. 11, p. 3463; Tab. 8, p. 3464
+    if (k === "R25") return "rivaroxaban 2,5 mg ×2/die";   // Fig. 11, p. 3463; Tab. 8, p. 3464
+    return "";
+  }
+
+  /* L'anticoagulante come si scrive in una fase: con l'antiaggregante vale
+     la dose ridotta se il timore del sanguinamento prevale (p. 3466). */
+  function oacTesto(s, conAnti) {
+    if (s.oac === "avk") return "AVK";
+    var d = DOAC[s.doac];
+    if (!d) return "DOAC (scegli la molecola al passo 1)";
+    if (!d.piena) return d.nome + " alla dose della FA (" + VERIF + ")";
+    if (conAnti && s.prevaleEmo) return d.nome + " " + d.ridotta;
+    return d.nome + " " + d.piena;
+  }
+
+  /* Lo schema per fasi. Rende { stato, motivo, sintesi, fasi[5], note[],
+     farmaci[] }: stato "ok", "manca" o "fuori". */
+  function schema(s, h, i) {
+    var r = { stato:"ok", motivo:"", sintesi:"", ramo:"", fasi:[[], [], [], [], []], note:[], farmaci:[] };
+    function op(n, k, t, cor, loe, pag) { r.fasi[n].push({ k:k, t:t, cor:cor || "", loe:loe || "", pag:pag || "" }); }
+    function nota(g, t) { r.note.push({ g:g, t:t }); }
+    if (s.sca) {
+      r.stato = "fuori";
+      r.motivo = "PCI per una sindrome coronarica acuta recente: fuori dal campo. Le durate di questo strumento sono quelle della CCS; dopo una SCA la DAPT standard dura 12 mesi (p. 3460) e lo schema segue la linea guida delle SCA.";
+      return r;
+    }
+    if (s.etaFuori) {
+      r.stato = "fuori";
+      r.motivo = "Età fuori dal dominio dello strumento (18–110 anni): la linea guida è per l'adulto, e lo schema non si disegna.";
+      return r;
+    }
+    if (s.oac === "") {
+      r.stato = "manca";
+      r.motivo = "Scegli al passo 1 se c'è un'indicazione all'anticoagulante orale: lo schema cambia per intero.";
+      return r;
+    }
+    var A = farm("A", s), C = farm("C", s);
+
+    if (s.oac === "no") {
+      if (h.stato === null) {
+        r.stato = "manca";
+        r.motivo = "Il rischio emorragico non è classificabile: manca " + h.ignoti.join(", ") + ". Senza, non si sceglie fra 1–3 e 6 mesi di DAPT.";
+        return r;
+      }
+      var DAPT = "<b>DAPT</b>: " + A + " + " + C;
+      var SAPT = "<b>Un solo antiaggregante</b>: " + A + ", oppure " + C;
+      r.farmaci = ["A", "C"];
+      if (h.stato === true) {
+        /* HBR — Rec. Table 17, p. 3466 (I A, scritta per l'HBR senza alto
+           rischio ischemico); Fig. 11, p. 3463 (colonna HBR, classe I). */
+        r.ramo = "hbr";
+        var cH = "I", lH = i.alto ? "" : "A";
+        var pH = i.alto ? "Fig. 11, p. 3463 · testo p. 3462" : "Rec. Table 17, p. 3466 · Fig. 11, p. 3463";
+        r.sintesi = "Senza OAC, alto rischio emorragico: DAPT per 1–3 mesi, poi un solo antiaggregante a vita";
+        op(0, "main", DAPT, cH, lH, pH);
+        op(1, "main", "<b>Fra 1 e 3 mesi si sospende la DAPT</b> e si prosegue con un solo antiaggregante: " + A + ", oppure " + C, cH, lH, pH);
+        op(2, "main", SAPT, "I", "", "Fig. 11, p. 3463");
+        op(3, "main", SAPT, "I", "A", "Rec. Table 17, p. 3465");
+        op(4, "main", SAPT + ", a vita", "I", "A", "Rec. Table 17, p. 3465");
+        if (i.alto) nota("", "<b>HBR con rischio ischemico alto.</b> La raccomandazione " + corPill("I", "A") + " di sospendere a 1–3 mesi è scritta per l'HBR <b>senza</b> rischio ischemico alto" + pgs("Rec. Table 17, p. 3466") + "; la Fig. 11 e il testo mettono 1–3 mesi per ogni HBR, senza distinguere" + pgs("pp. 3462–3463") + ". Per questo paziente la durata va bilanciata sul caso.");
+        if (i.ar.length) nota("", "<b>Stenting ad alto rischio trombotico</b> (" + i.ar.join("; ") + "): la Fig. 11 disegna prasugrel o ticagrelor solo senza HBR" + pgs("p. 3463") + "; la raccomandazione " + corPill("IIb", "C") + " non nomina il rischio emorragico" + pgs("p. 3466") + ". Decisione clinica.");
+        nota("info", "Terapia estesa e ticagrelor in monoterapia chiedono l'assenza di HBR" + pgs("Rec. Table 17, p. 3465") + ": non per questo paziente.");
+      } else if (!i.alto) {
+        /* Né HBR né rischio ischemico alto — default 6 mesi I A; accorciare
+           a 1–3 mesi IIb B (Rec. Table 17, p. 3466; Fig. 11, p. 3463). */
+        r.ramo = "default";
+        r.sintesi = "Senza OAC, né HBR né rischio ischemico alto: DAPT per 6 mesi (o 1–3), poi un solo antiaggregante a vita";
+        op(0, "main", DAPT + ", fino a 6 mesi: la strategia di default", "I", "A", "Rec. Table 17, p. 3466 · Fig. 11, p. 3463");
+        if (i.ar.length) {
+          r.farmaci.push("P", "T");
+          op(0, "alt", "<b>Oppure</b>, per lo stenting ad alto rischio trombotico (qui: " + i.ar.join("; ") + "): aspirina + " + farm("T90", s) + ", oppure aspirina + " + farm("P", s) + ", al posto del clopidogrel per il primo mese e fino a 3–6 mesi", "IIb", "C", "Rec. Table 17, p. 3466");
+          nota("", "La Fig. 11 disegna prasugrel e ticagrelor sotto il <b>rischio ischemico alto</b>" + pgs("nota a, p. 3463") + "; qui il rischio non è alto e la sola caratteristica è il polimorfismo. Nel portatore noto di un allele del CYP2C19 con perdita di funzione, in una PCI ad alto rischio, passare a ticagrelor o prasugrel è un'opzione ragionevole" + pgs("p. 3464") + ".");
+        }
+        op(1, "main", DAPT + " (default)", "I", "A", "Rec. Table 17, p. 3466");
+        op(1, "alt", "<b>Oppure</b> sospendere la DAPT fra 1 e 3 mesi e proseguire con un solo antiaggregante — possibile perché il paziente non è né ad alto rischio emorragico né ad alto rischio ischemico", "IIb", "B", "Rec. Table 17, p. 3466 · Fig. 11, p. 3463");
+        op(2, "main", DAPT + " fino a 6 mesi", "I", "A", "Rec. Table 17, p. 3466");
+        op(2, "alt", "Se la DAPT è stata sospesa fra 1 e 3 mesi: " + A + ", oppure " + C, "I", "", "Fig. 11, p. 3463");
+        op(3, "main", SAPT, "I", "A", "Rec. Table 17, p. 3465");
+        op(4, "main", SAPT + ", a vita", "I", "A", "Rec. Table 17, p. 3465");
+      } else {
+        /* Rischio ischemico alto, senza HBR — Fig. 11, colonna «High
+           ischaemic risk», p. 3463; Rec. Table 17, pp. 3465–3466. */
+        r.ramo = "alto";
+        r.farmaci.push("P", "T", "R25");
+        r.sintesi = "Senza OAC, rischio ischemico alto senza HBR: DAPT per 6 mesi, poi un solo antiaggregante o una terapia estesa";
+        op(0, "main", DAPT + " per 6 mesi", "I", "A", "Rec. Table 17, p. 3466 · Fig. 11, p. 3463");
+        if (i.ar.length) {
+          op(0, "alt", "<b>Oppure</b>, per lo stenting ad alto rischio trombotico (qui: " + i.ar.join("; ") + "): aspirina + " + farm("T90", s) + ", oppure aspirina + " + farm("P", s) + ", al posto del clopidogrel per il primo mese e fino a 3–6 mesi", "IIb", "C", "Rec. Table 17, p. 3466 · Fig. 11 nota a, p. 3463");
+        } else {
+          op(0, "info", "Prasugrel o ticagrelor al posto del clopidogrel " + corPill("IIb", "C") + " solo nello stenting ad alto rischio trombotico — tronco comune complesso, biforcazione con 2 stent, risultato subottimale, trombosi di stent pregressa, CYP2C19 *2/*3 noto: nessuno segnato.", "", "", "Rec. Table 17, p. 3466");
+        }
+        op(1, "main", DAPT, "I", "A", "Rec. Table 17, p. 3466");
+        if (i.ar.length) op(1, "alt", "Con prasugrel o ticagrelor si può proseguire fino a 3–6 mesi", "IIb", "C", "Rec. Table 17, p. 3466");
+        op(1, "no", "<b>Accorciare a 1–3 mesi: no.</b> L'opzione " + corPill("IIb", "B") + " chiede che il rischio ischemico non sia alto.", "", "", "Rec. Table 17, p. 3466");
+        op(2, "main", DAPT + " fino a 6 mesi", "I", "A", "Rec. Table 17, p. 3466");
+        if (i.ar.length) op(2, "alt", "Prasugrel o ticagrelor al massimo fino a 6 mesi: la Fig. 11 li disegna come DAPT di 1–6 mesi", "IIb", "", "Fig. 11, p. 3463");
+        var ESTESA = "<b>Oppure terapia estesa</b>: aspirina più un secondo antitrombotico — " + C + ", " + farm("P", s) + ", " + farm("T60", s) + " o " + farm("R25", s) + " (opzioni e numeri al passo 5)";
+        var MONO = "<b>Oppure</b> " + farm("T90", s) + " in monoterapia, se la DAPT iniziale era con ticagrelor — all'epoca della stesura non contemplata dall'EMA" + pgs("p. 3462");
+        for (var n = 3; n <= 4; n++) {
+          op(n, "main", SAPT + (n === 4 ? ", a vita" : ""), "I", "A", "Rec. Table 17, p. 3465");
+          op(n, "alt", ESTESA, "IIa", "A", "Rec. Table 17, p. 3465 · Fig. 11, p. 3463 · Tab. 8, p. 3464");
+          op(n, "alt", MONO, "IIb", "C", "Rec. Table 17, p. 3465");
+        }
+        op(4, "info", "Con la terapia estesa: rivalutare rischio emorragico e ischemico a intervalli regolari; oltre la durata dei trial non ci sono dati randomizzati.", "", "", "p. 3462");
+        if (i.soloC) nota("", "<b>Rischio ischemico alto solo per fattori della nota c che la Tab. S3 non elenca</b> (" + i.fattori.map(function (x) { return x.t; }).join("; ") + "). Per le durate conta la nota c" + pgs("p. 3466") + "; per la terapia estesa la raccomandazione rimanda anche alle definizioni della Tab. S3" + pgs("p. 3465") + ": candidatura da confermare.");
+      }
+      if (s.complicata) nota("", "<b>PCI complicata.</b> Senza OAC la Rec. Table 17 non pone la condizione «non complicata»; le complicanze procedurali però non sono criteri delle Tab. S2 e S3, e vanno pesate a giudizio" + pgs("p. 3466") + ".");
+      return r;
+    }
+
+    /* Con indicazione all'OAC — Rec. Table 17, p. 3466. L'uso previsto di
+       OAC e' gia' un criterio maggiore ARC-HBR (S2, p. 8). */
+    r.ramo = "oac";
+    r.farmaci = ["A", "C", s.oac === "avk" ? "avk" : (s.doac || "doac")];
+    var ASP1 = i.alto || i.notaE.length > 0;
+    var OAC2 = oacTesto(s, true), OACsolo = oacTesto(s, false);
+    var DUPLICE = "<b>Duplice</b>: " + OAC2 + " + " + C;
+    r.sintesi = "Con OAC: triplice per ≤1 settimana" + (ASP1 ? " (fino a 1 mese)" : "") + ", duplice fino a " + (i.alto ? "12" : "6") + " mesi, poi l'anticoagulante da solo a vita";
+    op(0, "main", "<b>Dalla PCI, triplice</b>: " + OAC2 + " + aspirina basse dosi 1×/die (carico se non la prende già) + " + C, "I", "C", "Rec. Table 17, p. 3466");
+    op(0, "main", "<b>Entro 1 settimana</b> si sospende l'aspirina e resta la duplice: " + OAC2 + " + " + C, "I", "A", "Rec. Table 17, p. 3466");
+    if (ASP1) {
+      var perche = i.fattori.map(function (x) { return x.t; });
+      for (var q = 0; q < i.notaE.length; q++) if (perche.indexOf(i.notaE[q]) < 0) perche.push(i.notaE[q]);
+      op(0, "alt", "<b>Oppure aspirina fino a 1 mese</b>, poi la duplice: rischio ischemico alto o caratteristiche anatomiche/procedurali che pesano più del sanguinamento (qui: " + perche.join("; ") + ")", "IIa", "B", "Rec. Table 17, p. 3466");
+    } else {
+      op(0, "info", "Aspirina fino a 1 mese " + corPill("IIa", "B") + " solo con rischio ischemico alto o caratteristiche anatomiche/procedurali della nota e: nessuna segnata.", "", "", "p. 3466");
+    }
+    op(0, "no", "<b>Ticagrelor o prasugrel nella triplice: in genere no.</b>", "III", "C", "Rec. Table 17, p. 3466");
+    op(1, "main", DUPLICE, "I", "A", "Rec. Table 17, p. 3466");
+    op(2, "main", DUPLICE + (i.alto ? " (fino a 12 mesi: rischio ischemico alto)" : " fino a 6 mesi"), "I", "A", "Rec. Table 17, p. 3466");
+    if (!i.alto) op(2, "alt", "<b>Oppure</b>, con il rischio emorragico più alto e il rischio ischemico non alto: sospendere il clopidogrel già a 3 mesi e proseguire con l'anticoagulante da solo — la classe è nel testo, non nella Rec. Table 17", "IIb", "C", "p. 3464");
+    if (i.alto) {
+      op(3, "main", DUPLICE + ", fino a 12 mesi", "I", "A", "Rec. Table 17, p. 3466");
+    } else {
+      op(3, "main", "<b>L'anticoagulante da solo</b>: " + OACsolo, "I", "A", "Rec. Table 17, p. 3466");
+    }
+    op(4, "main", "<b>L'anticoagulante da solo, a vita</b>, alla dose terapeutica della FA: " + OACsolo + " — DOAC preferito all'AVK, salvo controindicazione", "I", "B", "Rec. Table 17, p. 3466");
+    op(4, "info", "Dopo 6–12 mesi di duplice, nella maggior parte dei pazienti con FA è preferito l'anticoagulante da solo.", "", "", "p. 3465");
+
+    if (s.complicata) nota("stop", "<b>PCI complicata: fuori dal campo della raccomandazione.</b> La sequenza " + corPill("I", "A") + " — aspirina ≤1 settimana, duplice 6 o 12 mesi, poi OAC — è scritta per la PCI <b>non complicata</b>" + pgs("Rec. Table 17, p. 3466") + ". Lo schema resta come riferimento; le durate vanno decise sul caso.");
+    if (s.oac === "avk") {
+      nota("", "<b>AVK scelto.</b> La fonte raccomanda il DOAC al posto dell'AVK, salvo controindicazione " + corPill("I", "A") + pgs("p. 3466") + ". Con l'AVK associato agli antiaggreganti: INR nella parte bassa dell'intervallo raccomandato e tempo in range >70% " + corPill("IIa", "B") + pgs("p. 3466") + ". L'intervallo di INR per l'indicazione la fonte non lo dà: " + VERIF + ".");
+    } else {
+      nota("info", "DOAC preferito all'AVK, salvo controindicazione " + corPill("I", "A") + pgs("Rec. Table 17, p. 3466") + ".");
+      if (s.doac === "") nota("", "Scegli la molecola al passo 1: le dosi ridotte della fonte valgono solo per rivaroxaban e dabigatran.");
+    }
+    if (s.prevaleEmo) {
+      if (s.oac === "doac" && DOAC[s.doac] && DOAC[s.doac].ridotta) nota("info", "<b>Il timore del sanguinamento prevale:</b> " + DOAC[s.doac].nome.toLowerCase() + " " + DOAC[s.doac].ridotta + " invece di " + DOAC[s.doac].piena + ", per tutta la durata dell'antiaggregante " + corPill("IIa", "B") + pgs("Rec. Table 17, p. 3466") + ". Poi, da solo, la dose terapeutica piena.");
+      else if (s.oac === "doac" && DOAC[s.doac]) nota("", "<b>Il timore del sanguinamento prevale</b>, ma la fonte dà la dose ridotta solo per rivaroxaban (15 invece di 20 mg) e dabigatran (110 invece di 150 mg ×2/die)" + pgs("p. 3466") + ": per " + DOAC[s.doac].nome.toLowerCase() + " la dose resta " + VERIF + ".");
+      else if (s.oac === "avk") nota("", "<b>Il timore del sanguinamento prevale:</b> con l'AVK la leva della fonte è l'INR nella parte bassa dell'intervallo " + corPill("IIa", "B") + pgs("p. 3466") + ".");
+    } else if (s.oac === "doac" && (s.doac === "rivaroxaban" || s.doac === "dabigatran")) {
+      nota("info", "Se il timore del sanguinamento prevalesse su quello della trombosi di stent e dell'ictus: " + DOAC[s.doac].nome.toLowerCase() + " " + DOAC[s.doac].ridotta + " durante l'antiaggregante " + corPill("IIa", "B") + pgs("p. 3466") + " — si segna al passo 1.");
+    }
+    if (s.motivo === "valvola") {
+      if (s.oac === "doac") nota("stop", "<b>Protesi valvolare meccanica: i DOAC non sono indicati</b>" + pgs("p. 3465") + ". Con la valvola meccanica l'anticoagulante è l'AVK.");
+      nota("", "<b>Valvola meccanica: fuori dalle evidenze.</b> Le raccomandazioni con l'OAC vengono dalla FA; se valgano con un'altra indicazione è incerto, per i pochi dati" + pgs("p. 3465") + ".");
+    }
+    if (s.motivo === "tev") {
+      nota("", "<b>Tromboembolismo venoso: fuori dalle evidenze.</b> Le raccomandazioni con l'OAC vengono dalla FA; con il TEV la loro validità è incerta" + pgs("p. 3465") + ". Se l'anticoagulante è alla dose ridotta di prevenzione estesa — rivaroxaban 10 mg 1×/die o apixaban 2,5 mg ×2/die — con una CCS concomitante la fonte raccomanda di tornare alla <b>dose piena</b>" + pgs("p. 3465") + ", che però non riporta: " + VERIF + ".");
+    }
+    nota("info", "Ticagrelor — e forse prasugrel, senza dati specifici — si possono considerare nella <b>duplice</b> solo con rischio molto alto di trombosi di stent e rischio emorragico basso; il testo non dà una classe" + pgs("pp. 3464–3465") + ". Con l'OAC, però, l'ARC-HBR conta già un criterio maggiore.");
+    return r;
+  }
+
+  /* Terapia estesa: rischio ischemico aumentato e niente HBR (Rec. Table
+     17, p. 3465, IIa A; Tab. 8, p. 3464). */
+  function estesa(s, h, i) {
+    if (s.sca) return { cand:null, motivo:"PCI per una SCA recente: fuori dal campo." };
+    if (s.etaFuori) return { cand:null, motivo:"Età fuori dal dominio dello strumento: la linea guida è per l'adulto." };
+    if (s.oac === "") return { cand:null, motivo:"Serve prima l'indicazione all'anticoagulante (passo 1)." };
+    if (s.oac !== "no") return { cand:false, motivo:"Con l'anticoagulante orale la terapia estesa della Tab. 8 non si applica: dopo la duplice resta l'anticoagulante da solo, a vita (Rec. Table 17, p. 3466)." };
+    if (h.stato === null) return { cand:null, motivo:"Serve prima il rischio emorragico: manca " + h.ignoti.join(", ") + "." };
+    if (h.stato) return { cand:false, motivo:"Alto rischio emorragico: la terapia estesa chiede che non ci sia (Rec. Table 17, p. 3465)." };
+    if (!i.alto) return { cand:false, motivo:"Rischio ischemico non aumentato: nessun criterio della Tab. S3 né della nota c (Suppl. p. 9; p. 3466)." };
+    return { cand:true, soloC:i.soloC, prasugrel:prasugrel(s) };
+  }
+
+  /* ═══ STATO ═══════════════════════════════════════════════════════════ */
+  function el(id) { return document.getElementById(id); }
+  function ck(id) { var e = el(id); return !!(e && e.checked); }
+  function num(id) {
+    var e = el(id); if (!e) return null;
+    var v = String(e.value).replace(",", ".").trim();
+    if (v === "") return null;
+    var n = parseFloat(v);
+    return isFinite(n) ? n : null;
+  }
+  function radio(n) { var e = document.querySelector('input[name="' + n + '"]:checked'); return e ? e.value : ""; }
+  function sel(id) { var e = el(id); return e ? e.value : ""; }
+
+  function S() {
+    var oac = radio("oac");
+    var s = {
+      oac:oac, doac:oac === "doac" ? sel("doac") : "",
+      motivo:oac === "doac" || oac === "avk" ? sel("motivo") : "",
+      prevaleEmo:(oac === "doac" || oac === "avk") && ck("prevaleEmo"),
+      sca:ck("sca"), complicata:ck("complicata"),
+      eta:num("eta"), sesso:radio("sesso"), peso:num("peso"),
+      egfr:num("egfr"), hb:num("hb"), precise:num("precise"),
+      cad:radio("cad")
+    };
+    var liste = [MAGGIORI, MINORI, ISC_PCI, ISC_CLIN];
+    for (var a = 0; a < liste.length; a++) for (var b = 0; b < liste[a].length; b++) s[liste[a][b].id] = ck(liste[a][b].id);
+    return s;
+  }
+
+  /* ═══ DISEGNO ═════════════════════════════════════════════════════════ */
+  function nota(g, t) { var c = g === "stop" ? "stop" : (g === "info" ? "info" : (g === "ok" ? "ok" : "")); return '<div class="nota ' + c + '">' + t + "</div>"; }
+  function passo(ico, tx) { return '<div class="passo"><span class="ico">' + ico + '</span><span class="tx">' + tx + "</span></div>"; }
+  function chip(id, k, t) { var e = el(id); e.className = "cat " + k; e.innerHTML = t; }
+  function caselle(id, lista, tag) {
+    var h = "";
+    for (var i = 0; i < lista.length; i++) {
+      var x = lista[i], t = tag ? etichette(x) : "";
+      h += '<label class="chk"><input type="checkbox" id="' + x.id + '"><span>' + x.t + (t ? "<small>" + t + "</small>" : "") + "</span></label>";
+    }
+    el(id).innerHTML = h;
+  }
+
+  function disegnaHbr(s, h) {
+    var o = "";
+    if (h.stato === true) o += '<div class="esito"><span class="cat k4">Alto rischio emorragico: sì</span><span class="why">' + h.maggiori.length + " maggiori · " + h.minori.length + " minori — ne basta 1 maggiore, o 2 minori</span></div>";
+    else if (h.stato === false) o += '<div class="esito"><span class="cat k0">Alto rischio emorragico: no</span><span class="why">' + h.minori.length + " minori, nessun maggiore</span></div>";
+    else o += '<div class="esito"><span class="cat kx">Alto rischio emorragico: —</span><span class="why">manca ' + h.ignoti.join(", ") + "</span></div>";
+    for (var i = 0; i < h.maggiori.length; i++) o += passo("M", "maggiore: " + h.maggiori[i]);
+    for (var j = 0; j < h.minori.length; j++) o += passo("m", "minore: " + h.minori[j]);
+    if (h.stato === null) o += nota("", "Non classificabile: manca <b>" + h.ignoti.join(", ") + "</b>, che possono ancora aggiungere un criterio.");
+    else if (h.stato === false && h.ignoti.length) o += nota("info", "Non inserito, ma non cambierebbe l'esito: " + h.ignoti.join(", ") + ".");
+    if (s.oac === "doac" || s.oac === "avk") o += nota("info", "Con l'anticoagulante orale l'HBR è sì per definizione: l'uso previsto di OAC a lungo termine è un criterio maggiore" + pgs("Suppl. Tab. S2, p. 8") + ". Nello schema con OAC decide il rischio ischemico.");
+    if (s.precise === null) o += nota("info", "PRECISE-DAPT non inserito: la classificazione usa i soli criteri ARC-HBR, che la fonte accetta in alternativa" + pgs("Fig. 11, p. 3463; p. 3488") + ". Lo strumento non lo calcola: la fonte ne elenca le cinque voci e la soglia, non i coefficienti" + pgs("Suppl. Tab. S2, nota a, p. 8") + ".");
+    else if (s.precise === 25) o += nota("info", "PRECISE-DAPT esattamente 25: la Tab. S2 scrive «≥25» (quartile superiore), il testo di p. 3462 «&gt;25». Lo strumento segue la tabella" + pgs("Suppl. p. 8") + ".");
+    for (var f = 0; f < s.fuori.length; f++) o += nota("stop", s.fuori[f]);
+    o += '<p class="why" style="margin-top:8px">HBR con almeno 1 criterio maggiore o almeno 2 minori' + pgs("Suppl. Tab. S2, p. 8") + ". Valutare il rischio emorragico con PRECISE-DAPT, ARC-HBR o altri metodi validati" + corPill("I", "B") + pgs("p. 3488") + "</p>";
+    el("outHbr").innerHTML = o;
+  }
+
+  function disegnaIsc(s, i) {
+    var o = "";
+    o += '<div class="esito"><span class="cat ' + (i.alto ? "k3" : "k0") + '">Rischio ischemico: ' + (i.alto ? "alto" : "non alto") + '</span><span class="why">' + (i.alto ? i.fattori.length + (i.fattori.length === 1 ? " fattore" : " fattori") : "nessun fattore segnato") + "</span></div>";
+    for (var k = 0; k < i.fattori.length; k++) o += passo("+", i.fattori[k].t + " <span class='tag'>" + i.fattori[k].tag + "</span>");
+    o += passo("·", "CAD " + (i.cad === "complessa" ? "complessa" : (i.cad === "noncompl" ? "non complessa" : "— non indicata")) + ": la Tab. S3 conta sia la complessa sia la non complessa; la distinzione è a giudizio clinico e qui non cambia l'esito" + pgs("Suppl. p. 9"));
+    o += passo("·", "Stenting ad alto rischio trombotico: " + (i.ar.length ? "<b>sì</b> — " + i.ar.join("; ") : "no") + pgs("Rec. Table 17, p. 3466"));
+    o += passo("·", "Caratteristiche anatomiche/procedurali della nota e: " + (i.notaE.length ? "<b>sì</b> — " + i.notaE.join("; ") : "no") + " — contano con l'OAC, per l'aspirina fino a 1 mese" + pgs("p. 3466"));
+    if (i.soloC) o += nota("", "Alto solo per fattori della <b>nota c</b> che la Tab. S3 non elenca: la terapia estesa rimanda anche alla Tab. S3 — candidatura da confermare.");
+    if (s.egfr !== null && s.egfr < 60 && !s.cIrc) o += nota("info", "eGFR " + nf(s.egfr) + ": la nota c elenca l'insufficienza renale cronica fra i fattori di rischio ischemico, senza soglia" + pgs("p. 3466") + ". Se è IRC, segnala qui sopra.");
+    el("outIsc").innerHTML = o;
+  }
+
+  function disegnaSchema(s, r) {
+    el("schemaSint").innerHTML = r.stato === "ok" ? r.sintesi : "—";
+    el("schemaMsg").innerHTML = r.stato === "ok" ? "" : nota(r.stato === "fuori" ? "stop" : "", r.motivo);
+    var h = "";
+    for (var n = 0; n < FASI.length; n++) {
+      h += '<div class="fase" id="f' + n + '"><div class="fase-t">' + FASI[n] + '</div><div class="fase-c">';
+      if (r.stato !== "ok") h += '<div class="op op-info">— ' + (r.stato === "fuori" ? "fuori dal campo" : "manca un dato, vedi sopra") + "</div>";
+      else {
+        for (var j = 0; j < r.fasi[n].length; j++) {
+          var o = r.fasi[n][j];
+          h += '<div class="op op-' + o.k + '">' + o.t + (o.k === "info" ? "" : corPill(o.cor, o.loe)) + pgs(o.pag) + "</div>";
+        }
+      }
+      h += "</div></div>";
+    }
+    el("tl").innerHTML = h;
+    var nh = "";
+    for (var k = 0; k < r.note.length; k++) nh += nota(r.note[k].g, r.note[k].t);
+    el("schemaNote").innerHTML = nh;
+  }
+
+  /* Dosi e rene. Carico e mantenimento: Suppl. Tab. S1, p. 8; Fig. 11,
+     p. 3463; Rec. Table 17, pp. 3465–3466. Il rene la fonte non lo da' per
+     nessuna molecola: ogni riga lo dichiara. */
+  function righeDosi(s, r) {
+    var RENE = "la fonte non lo indica — " + VERIF;
+    var DOAC_CABG = "; prima di un CABG si sospende 1–2 giorni prima, secondo molecola e funzione renale (p. 3465) — i giorni per fascia di clearance non sono dati";
+    var R = {
+      A:   ["Aspirina", "150–300 mg (Suppl. Tab. S1, p. 8)", "75–100 mg 1×/die (Rec. Table 17, p. 3465); la Fig. 11 scrive 100 mg", RENE],
+      C:   ["Clopidogrel", "300–600 mg (Suppl. Tab. S1, p. 8)", "75 mg 1×/die (Fig. 11, p. 3463)", RENE],
+      P:   ["Prasugrel", "60 mg (Suppl. Tab. S1, p. 8)", "10 mg 1×/die; 5 mg se &lt;60 kg o ≥75 anni (Fig. 11 nota b, p. 3463) — qui: " + prasugrel(s).t, RENE + "; la dose cambia con età e peso, non col rene"],
+      T:   ["Ticagrelor", "180 mg (Suppl. Tab. S1, p. 8)", "90 mg ×2/die nella DAPT e in monoterapia · 60 mg ×2/die nella terapia estesa (Fig. 11, p. 3463)", RENE],
+      R25: ["Rivaroxaban, dose vascolare", "la fonte non ne indica", "2,5 mg ×2/die, con aspirina (Fig. 11, p. 3463; Tab. 8, p. 3464)", RENE],
+      rivaroxaban: ["Rivaroxaban", "la fonte non ne indica", "20 mg 1×/die; 15 mg 1×/die se il timore del sanguinamento prevale, per la durata dell'antiaggregante, IIa B (p. 3466)", "dose per funzione renale: la fonte non la dà — " + VERIF + ". Cita 15 o 10 mg «secondo la clearance» solo come schema di un trial, senza soglie (p. 3465); 15 invece di 20 mg è scelto per il rischio emorragico, non per il rene" + DOAC_CABG],
+      dabigatran:  ["Dabigatran", "la fonte non ne indica", "150 mg ×2/die; 110 mg ×2/die se il timore del sanguinamento prevale, per la durata dell'antiaggregante, IIa B (p. 3466)", RENE + "; 110 invece di 150 mg è scelto per il rischio emorragico, non per il rene" + DOAC_CABG],
+      apixaban:    ["Apixaban", "la fonte non ne indica", "dose terapeutica della FA: la fonte non la riporta — " + VERIF, RENE + DOAC_CABG],
+      edoxaban:    ["Edoxaban", "la fonte non ne indica", "dose terapeutica della FA: la fonte non la riporta — " + VERIF, RENE + DOAC_CABG],
+      doac:        ["DOAC", "—", "scegli la molecola al passo 1", RENE + DOAC_CABG],
+      avk:         ["AVK", "non pertinente", "guidata dall'INR: con gli antiaggreganti nella parte bassa dell'intervallo e tempo in range &gt;70%, IIa B (p. 3466); l'intervallo per l'indicazione: " + VERIF, RENE]
+    };
+    var out = [];
+    for (var i = 0; i < r.farmaci.length; i++) if (R[r.farmaci[i]]) out.push(R[r.farmaci[i]]);
+    return out;
+  }
+  function disegnaDosi(s, r) {
+    if (r.stato !== "ok") { el("dosi").innerHTML = '<p class="why">— Nessuno schema ancora: vedi il passo 4.</p>'; return; }
+    var rr = righeDosi(s, r);
+    var h = '<table class="glance"><thead><tr><th>Farmaco</th><th>Carico</th><th>Mantenimento</th><th>Rene</th></tr></thead><tbody>';
+    for (var i = 0; i < rr.length; i++) {
+      h += '<tr><td data-col="Farmaco"><b>' + rr[i][0] + '</b></td><td data-col="Carico">' + rr[i][1] + '</td><td data-col="Mantenimento">' + rr[i][2] + '</td><td data-col="Rene">' + rr[i][3] + "</td></tr>";
+    }
+    h += '<tr class="nota-riga"><td colspan="4" data-col="">Il rene entra nello strumento per una sola via che la fonte dà: l\'eGFR fra i criteri ARC-HBR (Suppl. Tab. S2, p. 8). Sospensioni prima di un CABG: prasugrel ≥7 giorni, clopidogrel ≥5, ticagrelor ≥3; l\'aspirina si continua fino al giorno dell\'intervento (p. 3465).</td></tr>';
+    el("dosi").innerHTML = h + "</tbody></table>";
+  }
+
+  function disegnaIpp(s, r) {
+    var o = "";
+    if (r.stato !== "ok") { el("ipp").innerHTML = '<p class="why">— Nessuno schema ancora: vedi il passo 4.</p>'; return; }
+    var quando = r.ramo === "hbr" ? "per i 1–3 mesi di DAPT" :
+                 r.ramo === "default" ? "per tutta la DAPT (6 mesi, o 1–3 se accorciata)" :
+                 r.ramo === "alto" ? "per i 6 mesi di DAPT e per tutta la terapia estesa, se si sceglie" :
+                 "per tutta la triplice e la duplice";
+    o += passo("→", "<b>Con due o più antitrombotici</b> — qui " + quando + ": inibitore di pompa protonica nei pazienti a rischio aumentato di sanguinamento gastrointestinale " + corPill("I", "A") + pgs("Rec. Table 17, p. 3466") + ". Fra le condizioni a rischio la fonte conta età avanzata, sanguinamento GI o malattia peptica pregressa, alcol in quantità elevata, steroidi o FANS cronici, e la combinazione stessa di antitrombotici" + pgs("p. 3465") + ".");
+    o += passo("→", "<b>Con un solo antitrombotico</b> — antiaggregante o anticoagulante: da considerare, secondo il rischio GI del singolo paziente " + corPill("IIa", "A") + pgs("Rec. Table 17, p. 3466") + ".");
+    o += passo("!", "Con il clopidogrel, omeprazolo ed esomeprazolo riducono il metabolita attivo (inibiscono il CYP2C19) e sono sconsigliati in associazione, benché un effetto sugli eventi ischemici non sia dimostrato" + pgs("p. 3465") + ".");
+    if (s.nFans) o += nota("info", "Segnato l'uso cronico di FANS o steroidi: è anche una condizione a rischio GI" + pgs("p. 3465") + ".");
+    o += passo("·", "Molecola e dose dell'inibitore di pompa: la fonte non le indica — " + VERIF + "; rene: la fonte non lo indica — " + VERIF + ".");
+    el("ipp").innerHTML = o;
+  }
+
+  function disegnaEstesa(s, e) {
+    var o = "";
+    if (e.cand !== true) {
+      o += '<div class="esito"><span class="cat ' + (e.cand === false ? "k0" : "kx") + '">' + (e.cand === false ? "Non candidato" : "—") + '</span></div><p class="why">' + e.motivo + "</p>";
+      el("estesa").innerHTML = o; return;
+    }
+    o += '<div class="esito"><span class="cat k3">Candidato</span><span class="why">rischio ischemico aumentato e niente HBR: aggiungere all\'aspirina un secondo antitrombotico ' + corPill("IIa", "A") + pgs("Rec. Table 17, p. 3465") + "</span></div>";
+    if (e.soloC) o += nota("", "Rischio alto solo per fattori della nota c: la raccomandazione rimanda alle definizioni della Tab. S3 — candidatura da confermare.");
+    o += '<p class="why">Nel riassunto della fonte, aspirina + ticagrelor 60 mg ×2/die o aspirina + rivaroxaban 2,5 mg ×2/die, secondo il paziente; prolungare con clopidogrel o prasugrel è un\'opzione con evidenze più deboli' + pgs("p. 3462") + ".</p>";
+    o += '<div class="tbl-wrap"><table class="glance"><thead><tr><th>Farmaco (trial)</th><th>Dose</th><th>Con aspirina</th><th>Setting del trial</th><th>NNT</th><th>NNH</th></tr></thead><tbody>';
+    o += '<tr><td data-col="Farmaco (trial)"><b>Rivaroxaban</b> (COMPASS, contro placebo)</td><td data-col="Dose">2,5 mg ×2/die</td><td data-col="Con aspirina">100 mg 1×/die</td><td data-col="Setting del trial">CAD o arteriopatia periferica sintomatica ad alto rischio di eventi ischemici</td><td data-col="NNT">77</td><td data-col="NNH">84 <small class="muted">(sanguinamento maggiore ISTH modificato)</small></td></tr>';
+    o += '<tr><td data-col="Farmaco (trial)"><b>Clopidogrel</b> (DAPT trial, 6505 su 9961, contro placebo)</td><td data-col="Dose">75 mg/die</td><td data-col="Con aspirina">basse dosi, 75–162 mg 1×/die</td><td data-col="Setting del trial">dopo IMA, in chi ha tollerato 1 anno di DAPT<sup>a</sup></td><td data-col="NNT">63</td><td data-col="NNH">105 <small class="muted">(sanguinamenti GUSTO moderati e severi, o BARC 2, 3 e 5)</small></td></tr>';
+    o += '<tr class="nota-riga"><td colspan="6" data-col=""><span class="rich">a</span>La fonte scrive «post-IMA», ma nello stesso rigo dà il 25% di SCA e il 22% di IMA pregresso.</td></tr>';
+    o += '<tr><td data-col="Farmaco (trial)"><b>Prasugrel</b> (DAPT trial, 3456 su 9961, contro placebo)</td><td data-col="Dose">10 mg/die; 5 mg/die se &lt;60 kg o ≥75 anni — qui: ' + e.prasugrel.t + '</td><td data-col="Con aspirina">basse dosi, 75–162 mg 1×/die</td><td data-col="Setting del trial">dopo PCI per IMA, in chi ha tollerato 1 anno di DAPT</td><td data-col="NNT">63</td><td data-col="NNH">105 <small class="muted">(come sopra)</small></td></tr>';
+    o += '<tr><td data-col="Farmaco (trial)"><b>Ticagrelor</b> (PEGASUS-TIMI 54, contro placebo)</td><td data-col="Dose">60/90 mg ×2/die — la Fig. 11 indica 60 mg</td><td data-col="Con aspirina">basse dosi, 75–162 mg 1×/die</td><td data-col="Setting del trial">dopo IMA, in chi ha tollerato 1 anno di DAPT</td><td data-col="NNT">84<sup>b</sup></td><td data-col="NNH">81<sup>b</sup> <small class="muted">(sanguinamenti maggiori TIMI)</small></td></tr>';
+    o += '<tr class="nota-riga"><td colspan="6" data-col=""><span class="rich">b</span><span class="sap">DA SAPERE</span> Ricalcolati dai tassi a 3 anni della pubblicazione (PMID 25773268), il <b>60 mg</b> dà NNT ≈79 e NNH ≈81, il <b>90 mg</b> NNT ≈84 e NNH ≈65: la coppia della fonte unisce le due dosi.</td></tr>';
+    o += '<tr><td colspan="6" data-col="">Come si legge: l\'NNT si riferisce all\'endpoint ischemico primario, l\'NNH all\'endpoint chiave di sicurezza, ciascuno del proprio trial; per il DAPT trial NNT e NNH sono aggregati per clopidogrel e prasugrel. La legenda indica l\'aspirina a 75–100 mg/die (Tab. 8, p. 3464).</td></tr>';
+    o += "</tbody></table></div>";
+    el("estesa").innerHTML = o;
+  }
+
+  function disegnaDopo(s, h, i, r) {
+    var o = "";
+    if (r.stato !== "ok") { el("dopo").innerHTML = '<p class="why">— ' + r.motivo + "</p>"; return; }
+    if (r.ramo === "hbr") o += passo("1", "Fra <b>1 e 3 mesi</b> dalla PCI: stop alla DAPT, resta aspirina o clopidogrel, a vita.");
+    if (r.ramo === "default") o += passo("1", "Scegli la durata: <b>6 mesi</b> (default) o <b>1–3 mesi</b> (IIb B); poi aspirina o clopidogrel, a vita.");
+    if (r.ramo === "alto") {
+      o += passo("1", "A <b>6 mesi</b>: scegli fra un solo antiaggregante e la terapia estesa (passo 5), sul profilo del paziente e sui criteri dei trial" + pgs("p. 3462") + ".");
+      o += passo("2", "Con la terapia estesa: rivaluta rischio emorragico e ischemico a intervalli regolari" + pgs("p. 3462") + ".");
+    }
+    if (r.ramo === "oac") {
+      o += passo("1", "Entro <b>1 settimana</b> — o a 1 mese, se c'è la ragione — stop all'aspirina.");
+      o += passo("2", "A <b>" + (i.alto ? "12" : "6") + " mesi</b>: stop al clopidogrel, resta l'anticoagulante da solo alla dose terapeutica della FA, a vita.");
+    }
+    o += passo("·", "Ricontrolla la classificazione quando cambia qualcosa: un sanguinamento, un calo dell'emoglobina o dell'eGFR, un evento ischemico spostano il paziente di colonna.");
+    el("dopo").innerHTML = o;
+  }
+
+  function disegnaDaSapere() {
+    var o = "";
+    o += passo("·", "<b>Prima di un CABG</b>: l'aspirina si continua fino al giorno dell'intervento e si riprende appena possibile, possibilmente entro 24 ore; prasugrel sospeso ≥7 giorni prima, clopidogrel ≥5, ticagrelor ≥3; rivaroxaban, apixaban, edoxaban e dabigatran 1–2 giorni prima, secondo molecola e funzione renale" + pgs("p. 3465") + ".");
+    o += passo("·", "<b>Test genetico o di funzione piastrinica</b>: di routine, le evidenze non lo sostengono nella CCS" + pgs("p. 3464") + ".");
+    o += passo("·", "<b>Ticagrelor al posto del clopidogrel</b> nella DAPT dopo PCI elettiva: di regola non serve — in ALPHEUS non ha ridotto l'infarto periprocedurale e ha aumentato i sanguinamenti minori" + pgs("p. 3462") + ".");
+    o += passo("·", "<b>Ticagrelor in monoterapia</b>: provato solo a 90 mg ×2/die, per al massimo 23 mesi; all'epoca della stesura non contemplato dall'EMA" + pgs("p. 3462") + ".");
+    el("dasapere").innerHTML = o;
+  }
+
+  function disegnaLimiti(s, h, i, r) {
+    var lim = [];
+    for (var f = 0; f < s.fuori.length; f++) lim.push("<b>" + s.fuori[f] + "</b>");
+    lim.push("<b>SCA recente: fuori.</b> Dopo una sindrome coronarica acuta la DAPT standard dura 12 mesi" + pgs("p. 3460") + " e le durate seguono la linea guida delle SCA.");
+    lim.push("<b>PCI complicata: fuori.</b> La sequenza raccomandata con l'anticoagulante è scritta per la PCI non complicata" + pgs("Rec. Table 17, p. 3466") + ".");
+    lim.push("<b>Valvola meccanica e TEV: fuori dalle evidenze.</b> Le raccomandazioni con l'anticoagulante vengono dalla FA; con un'altra indicazione la loro validità è incerta" + pgs("p. 3465") + ".");
+    lim.push("<b>Il PRECISE-DAPT va inserito, non si calcola:</b> la fonte ne dà le cinque voci — età, emoglobina, globuli bianchi, sanguinamento spontaneo pregresso, clearance della creatinina — e la soglia, non i coefficienti" + pgs("Suppl. Tab. S2, nota a, p. 8") + ".");
+    lim.push("<b>Rischio ischemico «alto» o «moderatamente aumentato»:</b> la legenda della Tab. 8 li nomina entrambi, la Tab. S3 non li separa; lo strumento dice solo alto o non alto, e CAD complessa o non complessa resta un giudizio clinico" + pgs("p. 3464; Suppl. p. 9") + ".");
+    lim.push("<b>Rene:</b> la fonte non dà l'aggiustamento renale di nessun antitrombotico; l'eGFR entra solo nei criteri ARC-HBR" + pgs("Suppl. p. 8") + ".");
+    lim.push("Lo strumento non conosce interazioni (per esempio con inibitori o induttori del CYP3A4 e del CYP2C19, Suppl. Tab. S1, p. 8), allergie né comorbidità non segnate, e non sostituisce la scheda tecnica.");
+    el("limiti").innerHTML = "<li>" + lim.join("</li><li>") + "</li>";
+  }
+
+  function disegna() {
+    var s = valida(S());
+    el("rigaDoac").className = "row" + (s.oac === "doac" ? "" : " hide");
+    el("rigaOac").className = (s.oac === "doac" || s.oac === "avk") ? "" : "hide";
+
+    var h = hbr(s), i = ischemico(s), r = schema(s, h, i), e = estesa(s, h, i);
+    disegnaHbr(s, h);
+    disegnaIsc(s, i);
+    disegnaSchema(s, r);
+    disegnaDosi(s, r);
+    disegnaIpp(s, r);
+    disegnaEstesa(s, e);
+    disegnaDopo(s, h, i, r);
+    disegnaLimiti(s, h, i, r);
+
+    chip("barHbr", h.stato === true ? "k4" : (h.stato === false ? "k0" : "kx"), h.stato === true ? "sì" : (h.stato === false ? "no" : "—"));
+    chip("barIsc", i.alto ? "k3" : "k0", i.alto ? "alto" : "non alto");
+    var bs = "—";
+    if (r.stato === "fuori") bs = "fuori campo";
+    else if (r.stato === "ok") bs = r.ramo === "hbr" ? "DAPT 1–3 mesi" : (r.ramo === "default" ? "DAPT 6 (o 1–3) mesi" : (r.ramo === "alto" ? "DAPT 6 mesi, poi SAPT o estesa" : "OAC + clopidogrel " + (i.alto ? "12" : "6") + " mesi"));
+    chip("barSch", r.stato === "ok" ? "k1" : (r.stato === "fuori" ? "k4" : "kx"), bs);
+  }
+
+  caselle("lstMag", MAGGIORI, false);
+  caselle("lstMin", MINORI, false);
+  caselle("lstPci", ISC_PCI, true);
+  caselle("lstClin", ISC_CLIN, true);
+  disegnaDaSapere();
+
+  document.addEventListener("input", disegna);
+  document.addEventListener("change", disegna);
+  el("azzera").addEventListener("click", function () {
+    var ins = document.querySelectorAll("input");
+    for (var i = 0; i < ins.length; i++) {
+      if (ins[i].type === "checkbox" || ins[i].type === "radio") ins[i].checked = false;
+      else ins[i].value = "";
+    }
+    var sels = document.querySelectorAll("select");
+    for (var j = 0; j < sels.length; j++) sels[j].value = "";
+    disegna();
+    window.scrollTo(0, 0);
+  });
+
+  window.DAPT_MOTORE = { valida:valida, hbr:hbr, ischemico:ischemico, schema:schema, estesa:estesa, prasugrel:prasugrel, oacTesto:oacTesto };
+  disegna();
+})();
+</script>
+<script data-iphone="web">
+// Solo da un indirizzo https, cioe' dalla pagina pubblicata: aperto come file
+// il tool non cerca ne' manifest ne' service worker, che accanto al file non
+// ci sono. Un errore qui non deve fermare niente: e' un di piu'.
+(function(){
+if(location.protocol!=="https:") return;
+try{
+  var t=document.getElementsByTagName("head")[0];
+  var m=document.createElement("link"); m.rel="manifest"; m.href="manifest.webmanifest";
+  var i=document.createElement("link"); i.rel="apple-touch-icon"; i.href="icona-180.png";
+  t.appendChild(m); t.appendChild(i);
+  if("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js")["catch"](function(){});
+}catch(e){}
+})();
+</script>
+<script data-iphone="fine">document.documentElement.className+=" motore-ok";</script>
+</body>
+</html>
