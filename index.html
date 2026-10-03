@@ -789,6 +789,9 @@ html.js.motore-ko #nomotore{display:block}
       if (s.oac === "doac") nota("stop", "<b>Protesi valvolare meccanica: i DOAC non sono indicati</b>" + pgs("p. 3465") + ". Con la valvola meccanica l'anticoagulante è l'AVK.");
       nota("", "<b>Valvola meccanica: fuori dalle evidenze.</b> Le raccomandazioni con l'OAC vengono dalla FA; se valgano con un'altra indicazione è incerto, per i pochi dati" + pgs("p. 3465") + ".");
     }
+    if (s.motivo === "fa") {
+      nota(i.alto ? "" : "info", "<b>Fibrillazione atriale, ESC 2024</b> (scheda 10 del progetto, sezione 12). Dice altrimenti su quattro punti, e questo strumento segue la CCS 2024: dopo la PCI nella coronaropatia cronica ad alto rischio ischemico la Fig. 14 tiene la duplice fino a <b>6 mesi</b>, non 12" + (i.alto ? " — <b>tocca questo caso</b>" : "") + "; nel diabetico con stent la triplice si può prolungare fino a 3 mesi, senza classe; con l'AVK e gli antiaggreganti l'INR è 2,0–2,5 con il tempo in range &gt;70%, IIa C; e le dosi di apixaban ed edoxaban, che qui restano da verificare, stanno nella sua Tab. 11 (scheda 10, sezione 5).");
+    }
     if (s.motivo === "tev") {
       nota("", "<b>Tromboembolismo venoso: fuori dalle evidenze.</b> Le raccomandazioni con l'OAC vengono dalla FA; con il TEV la loro validità è incerta" + pgs("p. 3465") + ". Se l'anticoagulante è alla dose ridotta di prevenzione estesa — rivaroxaban 10 mg 1×/die o apixaban 2,5 mg ×2/die — con una CCS concomitante la fonte raccomanda di tornare alla <b>dose piena</b>" + pgs("p. 3465") + ", che però non riporta: " + VERIF + ".");
     }
